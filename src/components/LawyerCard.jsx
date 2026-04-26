@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const StarIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)" stroke="none">
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -52,7 +54,7 @@ function ScoreBar({ score }) {
 
 export default function LawyerCard({ lawyer, rank }) {
   const {
-    name,
+    lawyer_name,
     specialization,
     location,
     fees,
@@ -61,12 +63,15 @@ export default function LawyerCard({ lawyer, rank }) {
     experience,
   } = lawyer
 
+  const profileId = lawyer._id || lawyer.id || ''
+
   return (
-    <div className="card fade-in" style={{
-      position: 'relative',
-      padding: '24px',
-      animation: `fadeIn 0.4s ease ${rank * 0.08}s both`,
-    }}>
+    <Link to={`/my-profile?user_id=${profileId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="card fade-in" style={{
+        position: 'relative',
+        padding: '24px',
+        animation: `fadeIn 0.4s ease ${rank * 0.08}s both`,
+      }}>
       {rank === 0 && (
         <div style={{
           position: 'absolute',
@@ -103,10 +108,10 @@ export default function LawyerCard({ lawyer, rank }) {
             justifyContent: 'center',
             marginBottom: '12px',
           }}>
-            {name?.charAt(0)?.toUpperCase() || 'L'}
+            {lawyer_name?.charAt(0)?.toUpperCase() || 'L'}
           </div>
           <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 600, color: 'var(--navy)', marginBottom: '4px' }}>
-            {name || 'Lawyer'}
+            {lawyer_name || 'Lawyer'}
           </h3>
           <span className="badge badge-gold">{specialization || 'General Practice'}</span>
         </div>
@@ -134,6 +139,11 @@ export default function LawyerCard({ lawyer, rank }) {
             <BriefcaseIcon /> {experience} yrs exp
           </span>
         )}
+        {lawyer.phone && (
+          <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+            <RupeeIcon /> {lawyer.phone}
+          </span>
+        )}
       </div>
 
       {/* Match bar */}
@@ -155,5 +165,6 @@ export default function LawyerCard({ lawyer, rank }) {
         </div>
       )}
     </div>
+    </Link>
   )
 }

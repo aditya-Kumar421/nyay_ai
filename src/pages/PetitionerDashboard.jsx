@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import CaseForm from '../components/CaseForm'
 import ResultList from '../components/ResultList'
 import api from '../api/axios'
+import PetitionerNav from '../components/PetitionerNav'
 
 export default function PetitionerDashboard() {
   const user = JSON.parse(localStorage.getItem('nyay_user') || '{}')
@@ -33,6 +34,22 @@ export default function PetitionerDashboard() {
         location: form.location,
       })
       setLawyers(data.lawyers || data.recommendations || data || [])
+
+      // Persist this search as a case on petitioner profile (best-effort)
+      try {
+        const currentUserId = user._id || user.id
+        if (currentUserId) {
+          await api.post('/add-case', {
+            user_id: currentUserId,
+            description: form.description,
+            budget: Number(form.budget),
+            location: form.location,
+          })
+        }
+      } catch (err) {
+        // non-blocking: ignore save errors but log for debugging
+        // console.warn('Failed to save case:', err)
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Could not fetch recommendations. Please try again.')
       setLawyers([])
@@ -49,6 +66,7 @@ export default function PetitionerDashboard() {
         {/* Page header */}
         <div style={{ marginBottom: '36px' }}>
           <div className="section-label">Petitioner Portal</div>
+          <PetitionerNav active="dashboard" />
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 700, marginTop: '6px' }}>
             Good {getGreeting()}, {user.name?.split(' ')[0] || 'there'}.
           </h1>

@@ -5,6 +5,9 @@ import Register from './pages/Register'
 import PetitionerDashboard from './pages/PetitionerDashboard'
 import LawyerDashboard from './pages/LawyerDashboard'
 import BookDemo from './pages/BookDemo'
+import MyCases from './pages/MyCases'
+import SearchLawyers from './pages/SearchLawyers'
+import MyProfile from './pages/MyProfile'
 
 function ProtectedRoute({ children, role }) {
   const user = JSON.parse(localStorage.getItem('nyay_user') || 'null')
@@ -24,6 +27,22 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/book-demo" element={<BookDemo />} />
         <Route
+          path="/my-cases"
+          element={
+            <ProtectedRoute role="petitioner">
+              <MyCases />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search-lawyers"
+          element={
+            <ProtectedRoute role="petitioner">
+              <SearchLawyers />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/petitioner"
           element={
             <ProtectedRoute role="petitioner">
@@ -39,6 +58,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/my-profile" element={<MyProfile />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
