@@ -113,7 +113,7 @@ export default function LawyerDashboard() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', maxWidth: '900px' }}>
+        <div className="grid-two" style={{ maxWidth: '900px' }}>
           {/* Profile card */}
           <div>
             <div className="card" style={{ padding: '28px' }}>
@@ -182,7 +182,7 @@ export default function LawyerDashboard() {
                     placeholder="New Delhi"
                     required
                   />
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                  <div className="responsive-form-grid">
                     <FormInput
                       label="Consultation Fee (₹)"
                       type="number"

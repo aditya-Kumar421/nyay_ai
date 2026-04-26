@@ -80,7 +80,7 @@ export default function SearchLawyers() {
           Filter by specialization, location, experience, fees, or rating. All fields are optional.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '28px', alignItems: 'start' }}>
+        <div className="grid-sidebar">
           {/* Filter panel */}
           <div className="card" style={{ padding: '24px', position: 'sticky', top: '80px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>

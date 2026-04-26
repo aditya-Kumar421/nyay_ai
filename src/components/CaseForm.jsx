@@ -17,7 +17,7 @@ export default function CaseForm({ form, onChange, onSubmit, loading, error }) {
         hint="Be as specific as possible to get the most relevant recommendations."
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+      <div className="responsive-form-grid">
         <FormInput
           label="Budget (₹)"
           type="number"

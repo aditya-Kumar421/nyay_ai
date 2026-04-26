@@ -283,3 +283,44 @@ h1, h2, h3, h4 {
     padding: 40px 24px;
   }
 }
+
+/* Responsive grid utilities */
+.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.grid-sidebar { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
+.grid-sidebar-lg { display: grid; grid-template-columns: 420px 1fr; gap: 28px; }
+.grid-card-cols { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+.grid-1fr-360 { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+.grid-1fr-480 { display: grid; grid-template-columns: 1fr 480px; gap: 60px; max-width: 980px; width: 100%; }
+.responsive-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+@media (max-width: 900px) {
+  .grid-sidebar { grid-template-columns: 1fr; }
+  .grid-sidebar-lg { grid-template-columns: 1fr; }
+  .grid-1fr-360 { grid-template-columns: 1fr; }
+  .grid-card-cols { grid-template-columns: 1fr; }
+  .grid-two { grid-template-columns: 1fr; }
+  .grid-three { grid-template-columns: 1fr; }
+  .grid-four { grid-template-columns: repeat(2,1fr); }
+  .responsive-form-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .card { padding: 18px; }
+  .btn { padding: 10px 14px; font-size: 0.88rem; }
+}
+
+.centered-single { max-width: 600px; margin: 0 auto; transition: all 0.3s ease; }
+
+/* Navbar responsive helpers */
+.nav-right { display: flex; gap: 12px; align-items: center; }
+.nav-mobile-toggle { display: none; }
+.mobile-menu { display: none; position: absolute; right: 16px; top: 64px; background: var(--bg-card); border: 1px solid var(--border); padding: 12px; border-radius: 8px; box-shadow: var(--shadow-md); z-index: 200; min-width: 200px; }
+
+@media (max-width: 768px) {
+  .nav-right { display: none !important; }
+  .nav-mobile-toggle { display: block !important; }
+  .mobile-menu { display: block; }
+}

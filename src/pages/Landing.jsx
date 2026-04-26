@@ -123,12 +123,7 @@ export default function Landing() {
 
       {/* ── Stats bar ─────────────────────────────────────────── */}
       <section style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--bg-card)' }}>
-        <div className="container" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '0',
-          padding: '0 24px',
-        }}>
+        <div className="container grid-four" style={{ padding: '0 24px' }}>
           {stats.map((s, i) => (
             <div key={i} style={{
               textAlign: 'center',
@@ -152,7 +147,7 @@ export default function Landing() {
 
       {/* ── How it works ─────────────────────────────────────── */}
       <section style={{ padding: '80px 24px' }}>
-        <div className="container">
+          <div className="container">
           <div className="section-label" style={{ textAlign: 'center' }}>How It Works</div>
           <h2 style={{
             fontFamily: 'var(--font-display)',
@@ -165,7 +160,7 @@ export default function Landing() {
             Three steps to your legal solution
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          <div className="grid-three">
             {[
               { num: '01', title: 'Register & Describe', desc: 'Create an account as a petitioner and describe your legal issue in plain language.' },
               { num: '02', title: 'AI Analyses', desc: 'Our model processes your case, budget, and location to identify the best matching lawyers.' },
@@ -193,8 +188,8 @@ export default function Landing() {
 
       {/* ── Features ──────────────────────────────────────────── */}
       <section style={{ padding: '20px 24px 80px', background: 'var(--bg-subtle)' }}>
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          <div className="container">
+          <div className="grid-three">
             {features.map((f) => (
               <div key={f.title} className="card" style={{ padding: '24px' }}>
                 <div style={{ color: 'var(--gold)', marginBottom: '14px' }}>{f.icon}</div>

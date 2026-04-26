@@ -75,14 +75,7 @@ export default function PetitionerDashboard() {
           </p>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: searched ? '420px 1fr' : '1fr',
-          gap: '28px',
-          maxWidth: searched ? '100%' : '600px',
-          margin: searched ? '0' : '0 auto',
-          transition: 'all 0.3s ease',
-        }}>
+        <div className={searched ? 'grid-sidebar-lg' : 'centered-single'}>
           {/* Case form panel */}
           <div>
             <div className="card" style={{ padding: '28px' }}>

@@ -55,7 +55,7 @@ export default function BookDemo() {
           zIndex: 0,
         }} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', gap: '60px', maxWidth: '980px', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div className="grid-1fr-480" style={{ position: 'relative', zIndex: 1 }}>
           {/* Left — pitch */}
           <div style={{ paddingTop: '12px' }}>
             <div className="section-label">Book a Demo</div>

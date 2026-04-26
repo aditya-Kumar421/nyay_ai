@@ -94,7 +94,7 @@ export default function MyProfile() {
         ) : error ? (
           <div className="alert alert-error">{error}</div>
         ) : profile ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: '24px' }}>
+          <div className="grid-1fr-360">
             <div>
               <div className="card">
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem' }}>{profile.lawyer_name || profile.name}</h2>

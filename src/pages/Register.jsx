@@ -143,7 +143,7 @@ export default function Register() {
               placeholder="Min. 6 characters"
               required
             />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+            <div className="responsive-form-grid">
               <FormInput
                 label="Role"
                 type="select"

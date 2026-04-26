@@ -121,7 +121,7 @@ export default function MyCases() {
 
         {/* Add Case Form */}
         {showForm && (
-          <div className="card fade-in" style={{ padding: '28px', marginBottom: '28px', borderLeft: '3px solid var(--gold)' }}>
+              <div className="card fade-in" style={{ padding: '28px', marginBottom: '28px', borderLeft: '3px solid var(--gold)' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', fontWeight: 600, marginBottom: '20px' }}>
               Add New Case
             </h2>
@@ -137,7 +137,7 @@ export default function MyCases() {
                 rows={4}
                 required
               />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="grid-two">
                 <FormInput
                   label="Budget (₹)"
                   type="number"
@@ -189,7 +189,7 @@ export default function MyCases() {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {cases.map((c, i) => (
-              <div key={c.id || i} className="card fade-in" style={{ padding: '22px 24px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', alignItems: 'start' }}>
+              <div key={c.id || i} className="card fade-in grid-card-cols" style={{ padding: '22px 24px' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                     <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', fontFamily: 'monospace' }}>

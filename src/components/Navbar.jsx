@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const ScalesIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -15,6 +16,7 @@ const LogoutIcon = () => (
 
 export default function Navbar() {
   const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
   const user = JSON.parse(localStorage.getItem('nyay_user') || 'null')
 
   function handleLogout() {
@@ -53,7 +55,7 @@ export default function Navbar() {
         </Link>
 
         {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           {user ? (
             <>
               <span style={{
@@ -77,6 +79,28 @@ export default function Navbar() {
             </>
           )}
         </div>
+
+        <div className="nav-mobile-toggle" style={{ display: 'none' }}>
+          <button aria-label="Toggle menu" className="btn btn-ghost" onClick={() => setOpen(v => !v)}>
+            {open ? '✕' : '☰'}
+          </button>
+        </div>
+        {open && (
+          <div className="mobile-menu">
+            {user ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ fontWeight: 700 }}>{user.name || user.email}</div>
+                <div style={{ color: 'var(--text-muted)' }}>{user.role}</div>
+                <button className="btn btn-ghost" onClick={() => { setOpen(false); handleLogout() }} style={{ marginTop: '8px' }}>Logout</button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <Link to="/login" onClick={() => setOpen(false)} className="btn btn-ghost">Login</Link>
+                <Link to="/book-demo" onClick={() => setOpen(false)} className="btn btn-gold">Book Demo</Link>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   )
