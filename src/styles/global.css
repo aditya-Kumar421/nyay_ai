@@ -299,11 +299,21 @@ h1, h2, h3, h4 {
   .grid-sidebar { grid-template-columns: 1fr; }
   .grid-sidebar-lg { grid-template-columns: 1fr; }
   .grid-1fr-360 { grid-template-columns: 1fr; }
+  /* Make the 1fr / 480px layout collapse on narrower screens */
+  .grid-1fr-480 { grid-template-columns: 1fr; gap: 28px; max-width: 100%; }
+  .grid-1fr-480 > div { align-self: start; }
   .grid-card-cols { grid-template-columns: 1fr; }
   .grid-two { grid-template-columns: 1fr; }
   .grid-three { grid-template-columns: 1fr; }
   .grid-four { grid-template-columns: repeat(2,1fr); }
   .responsive-form-grid { grid-template-columns: 1fr; }
+}
+
+/* Extra small adjustments */
+@media (max-width: 600px) {
+  .grid-1fr-480 .card { padding: 18px; }
+  .grid-1fr-480 p { max-width: 100%; }
+  .page-wrapper > div { padding: 28px 12px; }
 }
 
 @media (max-width: 480px) {
