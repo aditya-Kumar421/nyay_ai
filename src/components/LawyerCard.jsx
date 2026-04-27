@@ -25,7 +25,7 @@ const RupeeIcon = () => (
 )
 
 function ScoreBar({ score }) {
-  const pct = Math.round(score * 100)
+  const pct = Math.round(score * 25)
   return (
     <div style={{ marginTop: '16px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
@@ -61,9 +61,11 @@ export default function LawyerCard({ lawyer, rank }) {
     match_score,
     reason,
     experience,
+    court_of_practice,
   } = lawyer
 
-  const profileId = lawyer._id || lawyer.id || ''
+  const profileId = lawyer.user_id || lawyer._id || lawyer.id || ''
+  console.log('Profile ID:', lawyer.user_id)
 
   return (
     <Link to={`/my-profile?user_id=${profileId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -134,6 +136,9 @@ export default function LawyerCard({ lawyer, rank }) {
             <LocationIcon /> {location}
           </span>
         )}
+        <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+          <BriefcaseIcon /> {court_of_practice || 'District Court'}
+        </span>
         {experience && (
           <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
             <BriefcaseIcon /> {experience} yrs exp

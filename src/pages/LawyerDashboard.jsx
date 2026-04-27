@@ -9,11 +9,20 @@ const specializationOptions = [
   { value: 'property', label: 'Property Law' },
 ]
 
+const courtOptions = [
+  { value: 'Session Court', label: 'Session Court' },
+  { value: 'District Court', label: 'District Court' },
+  { value: 'High Court', label: 'High Court' },
+  { value: 'Supreme Court', label: 'Supreme Court' },
+]
+
 const EMPTY_PROFILE = {
   specialization: '',
   location: '',
   fees: '',
   experience: '',
+  court_of_practice: '',
+  bar_council_id: '',
 }
 
 export default function LawyerDashboard() {
@@ -26,6 +35,7 @@ export default function LawyerDashboard() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  
 
   useEffect(() => {
     fetchProfile()
@@ -43,6 +53,8 @@ export default function LawyerDashboard() {
         location: p.location || '',
         fees: p.fees || '',
         experience: p.experience || '',
+        court_of_practice: p.court_of_practice || '',
+        bar_council_id: p.bar_council_id || '',
       })
     } catch (err) {
       if (err.response?.status === 404) {
@@ -54,6 +66,7 @@ export default function LawyerDashboard() {
     } finally {
       setLoading(false)
     }
+
   }
 
   function handleChange(e) {
@@ -66,8 +79,11 @@ export default function LawyerDashboard() {
     e.preventDefault()
     if (!form.specialization) { setError('Select a specialization.'); return }
     if (!form.location.trim()) { setError('Location is required.'); return }
-    if (!form.fees || Number(form.fees) <= 0) { setError('Enter valid consultation fees.'); return }
-    if (!form.experience || Number(form.experience) < 0) { setError('Enter valid years of experience.'); return }
+
+    const feesNum = Number(form.fees)
+    const expNum = Number(form.experience)
+    if (!form.fees || Number.isNaN(feesNum) || feesNum < 5000 || feesNum > 5000000) { setError('Enter consultation fees between ₹5,000 and ₹5,000,000.'); return }
+    if (form.experience === '' || Number.isNaN(expNum) || expNum < 0 || expNum > 20) { setError('Enter experience between 0 and 20 years.'); return }
 
     setSaving(true)
     setError('')
@@ -79,6 +95,8 @@ export default function LawyerDashboard() {
         location: form.location,
         fees: Number(form.fees),
         experience: Number(form.experience),
+        court_of_practice: form.court_of_practice,
+        bar_council_id: form.bar_council_id,
       }
       if (creating) {
         const { data } = await api.post('/create-profile', { ...payload, user_id: userId })
@@ -95,6 +113,11 @@ export default function LawyerDashboard() {
     } finally {
       setSaving(false)
     }
+  }
+
+  function toggleVisibility() {
+    if (!profile) return
+    setProfile(prev => ({ ...prev, visible: !prev.visible }))
   }
 
   return (
@@ -144,8 +167,10 @@ export default function LawyerDashboard() {
                   {[
                     { label: 'Specialization', value: profile.specialization },
                     { label: 'Location', value: profile.location },
+                    { label: 'Court of Practice', value: profile.court_of_practice || 'Session Court' },
                     { label: 'Consultation Fee', value: profile.fees ? `₹${Number(profile.fees).toLocaleString()}` : '—' },
                     { label: 'Experience', value: profile.experience ? `${profile.experience} years` : '—' },
+                    { label: 'Bar Council ID', value: profile.bar_council_id || '—' },
                   ].map(({ label, value }) => (
                     <div key={label} style={{
                       display: 'flex',
@@ -182,6 +207,21 @@ export default function LawyerDashboard() {
                     placeholder="New Delhi"
                     required
                   />
+                  <FormInput
+                    label="Court of Practice"
+                    type="select"
+                    name="court_of_practice"
+                    value={form.court_of_practice}
+                    onChange={handleChange}
+                    options={courtOptions}
+                  />
+                  <FormInput
+                    label="Bar Council ID"
+                    name="bar_council_id"
+                    value={form.bar_council_id}
+                    onChange={handleChange}
+                    placeholder="Bar Council Registration ID"
+                  />
                   <div className="responsive-form-grid">
                     <FormInput
                       label="Consultation Fee (₹)"
@@ -189,8 +229,9 @@ export default function LawyerDashboard() {
                       name="fees"
                       value={form.fees}
                       onChange={handleChange}
-                      placeholder="2500"
-                      min="0"
+                      placeholder="5000"
+                      min="5000"
+                      max="5000000"
                       required
                     />
                     <FormInput
@@ -201,6 +242,7 @@ export default function LawyerDashboard() {
                       onChange={handleChange}
                       placeholder="5"
                       min="0"
+                      max="20"
                       required
                     />
                   </div>
@@ -282,20 +324,27 @@ export default function LawyerDashboard() {
                 <div>
                   <h3 style={{ fontSize: '0.875rem', fontWeight: 600, marginBottom: '3px' }}>Profile Visibility</h3>
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                    {profile ? 'Visible to petitioners' : 'Create a profile to go live'}
+                    {profile ? (profile.visible ? 'Visible to petitioners' : 'Hidden from petitioners') : 'Create a profile to go live'}
                   </p>
                 </div>
-                <div style={{
-                  width: '36px', height: '20px',
-                  background: profile ? 'var(--navy)' : 'var(--border)',
-                  borderRadius: '999px',
-                  position: 'relative',
-                  transition: 'background 0.2s',
-                }}>
+                <div
+                  onClick={toggleVisibility}
+                  role="switch"
+                  aria-checked={!!profile?.visible}
+                  title={profile ? (profile.visible ? 'Click to hide profile' : 'Click to show profile') : 'Create a profile to go live'}
+                  style={{
+                    width: '36px', height: '20px',
+                    background: profile?.visible ? 'var(--navy)' : 'var(--border)',
+                    borderRadius: '999px',
+                    position: 'relative',
+                    transition: 'background 0.2s',
+                    cursor: profile ? 'pointer' : 'default',
+                  }}
+                >
                   <div style={{
                     position: 'absolute',
                     top: '3px',
-                    left: profile ? '19px' : '3px',
+                    left: profile?.visible ? '19px' : '3px',
                     width: '14px', height: '14px',
                     background: '#fff',
                     borderRadius: '50%',
@@ -309,5 +358,6 @@ export default function LawyerDashboard() {
         </div>
       </div>
     </div>
+  // </div>
   )
 }

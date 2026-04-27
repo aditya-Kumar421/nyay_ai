@@ -17,6 +17,7 @@ export default function MyProfile() {
   const [message, setMessage] = useState({ content: '' })
   const [cases, setCases] = useState([])
   const [selectedCase, setSelectedCase] = useState('')
+  const [intent, setIntent] = useState('consult')
   const navigate = useNavigate()
   const [sending, setSending] = useState(false)
   const [sendError, setSendError] = useState('')
@@ -39,10 +40,11 @@ export default function MyProfile() {
     fetchProfile()
     // also fetch current user's cases for dropdown
     const sender = JSON.parse(localStorage.getItem('nyay_user') || 'null')
-    if (sender && sender._id) {
+    // console.log('Sender info from localStorage:', sender)
+    if (sender && sender.id) {
       (async function fetchCases() {
         try {
-          const { data } = await api.get('/my-cases', { params: { user_id: sender._id } })
+          const { data } = await api.get('/my-cases', { params: { user_id: sender.id } })
           const list = Array.isArray(data) ? data : data.cases || []
           setCases(list)
         } catch (err) {
@@ -57,7 +59,7 @@ export default function MyProfile() {
     setSendError('')
     setSendSuccess('')
     const sender = JSON.parse(localStorage.getItem('nyay_user') || 'null')
-    const senderId = sender && sender._id ? sender._id : 0
+    const senderId = sender && sender.id ? sender.id : 0
     if (!message.content.trim()) { setSendError('Message cannot be empty.'); return }
 
     setSending(true)
@@ -65,11 +67,14 @@ export default function MyProfile() {
     // optimistic success: show message sent even if backend fails
     setSendSuccess('Message sent successfully')
     setMessage({ content: '' })
-    setSelectedCase('')
+    // keep selectedCase and intent so user can send again without re-selecting
+    // auto-clear the success message after a short delay
+    setTimeout(() => setSendSuccess(''), 3000)
     try {
       const body = {
         case_id: Number(selectedCase) || 0,
         receiver_id: userId,
+        purpose: intent,
         content: message.content,
       }
       await api.post('/send-message', body, { params: { sender_id: senderId } })
@@ -125,9 +130,16 @@ export default function MyProfile() {
 
                 <form onSubmit={handleSend} style={{ marginTop: '12px' }}>
                   <div style={{ marginBottom: '10px' }}>
+                    <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>Purpose</label>
+                    <select value={intent} onChange={e => setIntent(e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid var(--border)' }}>
+                      <option value="consult">Consult</option>
+                      <option value="hire">Hire for a case</option>
+                    </select>
+                  </div>
+                  <div style={{ marginBottom: '10px' }}>
                     <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>Select Case (optional)</label>
                     <select value={selectedCase} onChange={e => setSelectedCase(e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid var(--border)' }}>
-                      <option value="">None / General inquiry</option>
+                      <option value="">General inquiry</option>
                       {cases.map(c => (
                         <option key={c.id || c._id} value={c.id || c._id}>
                           {`#${c.id || c._id} — ${String(c.description || '').slice(0, 80)}`}

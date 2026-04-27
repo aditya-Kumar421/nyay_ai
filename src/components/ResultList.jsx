@@ -1,6 +1,7 @@
 import LawyerCard from './LawyerCard'
 
 export default function ResultList({ lawyers }) {
+  console.log('Rendering ResultList with lawyers:', lawyers)
   if (!lawyers || lawyers.length === 0) {
     return (
       <div style={{
@@ -34,7 +35,7 @@ export default function ResultList({ lawyers }) {
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {lawyers.map((lawyer, i) => (
-          <LawyerCard key={lawyer._id || lawyer.id || i} lawyer={lawyer} rank={i} />
+          <LawyerCard key={lawyer.user_id || lawyer.id || i} lawyer={lawyer} rank={i} />
         ))}
       </div>
     </div>
