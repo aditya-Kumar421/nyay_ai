@@ -4,6 +4,7 @@ import CaseForm from '../components/CaseForm'
 import ResultList from '../components/ResultList'
 import api from '../api/axios'
 import PetitionerNav from '../components/PetitionerNav'
+import MessagesWidget from '../components/MessagesWidget'
 
 export default function PetitionerDashboard() {
   const user = JSON.parse(localStorage.getItem('nyay_user') || '{}')
@@ -151,6 +152,7 @@ export default function PetitionerDashboard() {
           )}
         </div>
       </div>
+      <MessagesWidget mode="sender" />
     </div>
   )
 }

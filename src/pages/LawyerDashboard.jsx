@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import FormInput from '../components/FormInput'
 import api from '../api/axios'
+import MessagesWidget from '../components/MessagesWidget'
 
 const specializationOptions = [
   { value: 'criminal', label: 'Criminal Law' },
@@ -357,6 +358,7 @@ export default function LawyerDashboard() {
           </div>
         </div>
       </div>
+      <MessagesWidget />
     </div>
   // </div>
   )

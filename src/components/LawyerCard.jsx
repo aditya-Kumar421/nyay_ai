@@ -65,7 +65,6 @@ export default function LawyerCard({ lawyer, rank }) {
   } = lawyer
 
   const profileId = lawyer.user_id || lawyer._id || lawyer.id || ''
-  console.log('Profile ID:', lawyer.user_id)
 
   return (
     <Link to={`/my-profile?user_id=${profileId}`} style={{ textDecoration: 'none', color: 'inherit' }}>

@@ -334,3 +334,45 @@ h1, h2, h3, h4 {
   .nav-mobile-toggle { display: block !important; }
   .mobile-menu { display: block; }
 }
+
+  /* ─── Messages Widget (floating) ────────────────────────────── */
+  .messages-widget { position: fixed; right: 20px; bottom: 20px; z-index: 400; }
+  .mw-floating-btn {
+    width: 54px; height: 54px; border-radius: 999px; background: var(--navy); color: #fff; display: inline-flex; align-items: center; justify-content: center; position: relative; box-shadow: var(--shadow-md); border: none; cursor: pointer;
+  }
+  .mw-floating-btn svg { color: #fff; }
+  .mw-badge { position: absolute; top: -6px; right: -6px; background: #ff3b30; color: #fff; font-weight: 700; font-size: 0.72rem; padding: 4px 7px; border-radius: 999px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+
+  .mw-panel { width: 360px; max-width: calc(100vw - 40px); background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-lg); overflow: hidden; display: flex; flex-direction: column; margin-bottom: 12px; right: 0; margin-right: 0; }
+  .mw-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .mw-list { max-height: 380px; overflow: auto; }
+  .mw-item { padding: 12px 14px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; background: transparent; }
+  .mw-item:last-child { border-bottom: none; }
+  .mw-unread { background: linear-gradient(90deg, rgba(184,149,42,0.03), transparent); }
+  .mw-av { width: 40px; height: 40px; border-radius: 10px; background: var(--gold-bg); color: var(--gold); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .messages-widget { right: 12px; bottom: 12px; }
+    .mw-panel { width: 92vw; }
+    .mw-floating-btn { width: 48px; height: 48px; }
+  }
+
+  /* Collapsed pill (matches provided image) */
+  .mw-collapsed { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--bg-card); border: 1px solid var(--border); padding: 8px 12px; border-radius: 999px; box-shadow: var(--shadow-md); cursor: pointer; min-width: 220px; }
+  .mw-collapsed-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+  .mw-collapsed-av { width: 36px; height: 36px; border-radius: 999px; background: #fff; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--navy); }
+  .mw-collapsed-title { font-weight: 700; color: var(--text-primary); font-size: 0.95rem; }
+  .mw-collapsed-actions { display: flex; gap: 8px; align-items: center; margin-left: 8px; }
+  .mw-action-btn { background: transparent; border: none; padding: 6px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); }
+  .mw-action-btn:hover { background: var(--bg-subtle); color: var(--navy); }
+
+  /* When panel is open, slightly lift the pill */
+  .mw-collapsed.open { box-shadow: var(--shadow-lg); }
+
+  /* Adjust for very small screens */
+  @media (max-width: 420px) {
+    .mw-collapsed { min-width: 160px; padding: 8px; gap: 8px; }
+    .mw-collapsed-title { display: none; }
+    .mw-collapsed-av { width: 32px; height: 32px; }
+  }
+
