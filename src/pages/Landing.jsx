@@ -39,6 +39,9 @@ const stats = [
 ]
 
 export default function Landing() {
+  const user = JSON.parse(localStorage.getItem('nyay_user') || 'null')
+  const startDest = user ? (user.role === 'lawyer' ? '/lawyer' : '/petitioner') : '/login'
+  const kyrDest = user ? '/know-your-rights' : '/login?redirect=%2Fknow-your-rights'
   return (
     <div className="page-wrapper">
       <Navbar />
@@ -101,7 +104,7 @@ export default function Landing() {
             flexWrap: 'wrap',
             animationDelay: '0.26s',
           }}>
-            <Link to="/login" className="btn btn-primary btn-lg">
+            <Link to={startDest} className="btn btn-primary btn-lg">
               Get Started
             </Link>
             <Link to="/book-demo" className="btn btn-outline btn-lg">

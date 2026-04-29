@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
+import { Link } from 'react-router-dom'
 import CaseForm from '../components/CaseForm'
 import ResultList from '../components/ResultList'
 import api from '../api/axios'
@@ -95,23 +96,17 @@ export default function PetitionerDashboard() {
               />
             </div>
 
-            {/* Tips card */}
-            <div className="card" style={{ marginTop: '16px', padding: '20px', background: 'var(--gold-bg)', border: '1px solid rgba(184,149,42,0.2)' }}>
-              <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--gold)', marginBottom: '10px' }}>
-                💡 Tips for better results
-              </h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {[
-                  'Mention the type of dispute (civil, criminal, property…)',
-                  'Include key facts and timeline of events',
-                  'Specify if you need urgent representation',
-                ].map(tip => (
-                  <li key={tip} style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', paddingLeft: '14px', position: 'relative' }}>
-                    <span style={{ position: 'absolute', left: 0, color: 'var(--gold)' }}>·</span>
-                    {tip}
-                  </li>
-                ))}
-              </ul>
+            {/* Know Your Rights CTA (replaces tips) */}
+            <div style={{ marginTop: '16px' }}>
+              <div className="card" style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                <div>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Know Your Rights</h3>
+                  <p style={{ margin: '8px 0 0', color: 'var(--text-secondary)' }}>Instant AI guidance</p>
+                </div>
+                <div>
+                  <Link to="/know-your-rights" className="btn btn-primary btn-lg">Open Know Your Rights →</Link>
+                </div>
+              </div>
             </div>
           </div>
 

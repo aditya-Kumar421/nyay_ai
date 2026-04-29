@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import KnowYourRights from './pages/KnowYourRights'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -11,7 +12,8 @@ import MyProfile from './pages/MyProfile'
 
 function ProtectedRoute({ children, role }) {
   const user = JSON.parse(localStorage.getItem('nyay_user') || 'null')
-  if (!user) return <Navigate to="/login" replace />
+  const location = useLocation()
+  if (!user) return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} replace />
   if (role && user.role !== role) {
     return <Navigate to={user.role === 'lawyer' ? '/lawyer' : '/petitioner'} replace />
   }
@@ -55,6 +57,14 @@ export default function App() {
           element={
             <ProtectedRoute role="lawyer">
               <LawyerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/know-your-rights"
+          element={
+            <ProtectedRoute role="petitioner">
+              <KnowYourRights />
             </ProtectedRoute>
           }
         />

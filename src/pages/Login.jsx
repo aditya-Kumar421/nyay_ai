@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import api from '../api/axios'
 import FormInput from '../components/FormInput'
 
 export default function Login() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [form, setForm] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -27,8 +28,14 @@ export default function Login() {
       const { data } = await api.post('/login', form)
       const user = data.user || data
       localStorage.setItem('nyay_user', JSON.stringify(user))
-      if (user.role === 'lawyer') navigate('/lawyer')
-      else navigate('/petitioner')
+      const params = new URLSearchParams(location.search)
+      const redirect = params.get('redirect')
+      if (redirect) {
+        navigate(redirect, { replace: true })
+      } else {
+        if (user.role === 'lawyer') navigate('/lawyer')
+        else navigate('/petitioner')
+      }
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data?.error || 'Invalid credentials. Please try again.')
     } finally {

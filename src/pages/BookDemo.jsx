@@ -142,7 +142,7 @@ export default function BookDemo() {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Ravi Sharma"
+                    placeholder="Your name"
                     required
                   />
                   <FormInput
@@ -151,7 +151,7 @@ export default function BookDemo() {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="ravi@lawfirm.com"
+                    placeholder="your.email@lawfirm.com"
                     required
                   />
                   <FormInput
@@ -160,7 +160,7 @@ export default function BookDemo() {
                     name="message"
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="We are a Delhi-based law firm looking to streamline client-lawyer matching for our 50+ lawyer team…"
+                    placeholder="Let us know more about your needs…"
                     rows={5}
                     required
                   />
