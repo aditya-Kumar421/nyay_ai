@@ -10,6 +10,29 @@ const specializationOptions = [
   { value: 'property', label: 'Property Law' },
 ]
 
+const locationOptions = [
+  { value: 'New Delhi', label: 'New Delhi' },
+  { value: 'Mumbai', label: 'Mumbai' },
+  { value: 'Chennai', label: 'Chennai' },
+  { value: 'Kolkata', label: 'Kolkata' },
+  { value: 'Prayagraj', label: 'Prayagraj' },
+  { value: 'Bengaluru', label: 'Bengaluru' },
+  { value: 'Hyderabad', label: 'Hyderabad' },
+  { value: 'Ahmedabad', label: 'Ahmedabad' },
+  { value: 'Patna', label: 'Patna' },
+  { value: 'Lucknow', label: 'Lucknow' },
+  { value: 'Chandigarh', label: 'Chandigarh' },
+  { value: 'Jaipur', label: 'Jaipur' },
+  { value: 'Bhopal', label: 'Bhopal' },
+  { value: 'Cuttack', label: 'Cuttack' },
+  { value: 'Guwahati', label: 'Guwahati' },
+  { value: 'Ranchi', label: 'Ranchi' },
+  { value: 'Raipur', label: 'Raipur' },
+  { value: 'Kochi', label: 'Kochi' },
+  { value: 'Shimla', label: 'Shimla' },
+  { value: 'Jodhpur', label: 'Jodhpur' }
+]
+
 const courtOptions = [
   { value: 'Session Court', label: 'Session Court' },
   { value: 'District Court', label: 'District Court' },
@@ -201,11 +224,12 @@ export default function LawyerDashboard() {
                     required
                   />
                   <FormInput
-                    label="Location / City"
+                    label="City"
+                    type="select"
                     name="location"
                     value={form.location}
                     onChange={handleChange}
-                    placeholder="New Delhi"
+                    options={locationOptions}
                     required
                   />
                   <FormInput

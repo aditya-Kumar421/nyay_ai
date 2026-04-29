@@ -11,6 +11,30 @@ const STATUS_COLORS = {
   closed:   { bg: '#F5F0E8', color: '#5A627A', border: '#D4C9B8' },
 }
 
+const locationOptions = [
+  { value: 'New Delhi', label: 'New Delhi' },
+  { value: 'Mumbai', label: 'Mumbai' },
+  { value: 'Chennai', label: 'Chennai' },
+  { value: 'Kolkata', label: 'Kolkata' },
+  { value: 'Prayagraj', label: 'Prayagraj' },
+  { value: 'Bengaluru', label: 'Bengaluru' },
+  { value: 'Hyderabad', label: 'Hyderabad' },
+  { value: 'Ahmedabad', label: 'Ahmedabad' },
+  { value: 'Patna', label: 'Patna' },
+  { value: 'Lucknow', label: 'Lucknow' },
+  { value: 'Chandigarh', label: 'Chandigarh' },
+  { value: 'Jaipur', label: 'Jaipur' },
+  { value: 'Bhopal', label: 'Bhopal' },
+  { value: 'Cuttack', label: 'Cuttack' },
+  { value: 'Guwahati', label: 'Guwahati' },
+  { value: 'Ranchi', label: 'Ranchi' },
+  { value: 'Raipur', label: 'Raipur' },
+  { value: 'Kochi', label: 'Kochi' },
+  { value: 'Shimla', label: 'Shimla' },
+  { value: 'Jodhpur', label: 'Jodhpur' }
+]
+
+
 function StatusBadge({ status }) {
   const s = STATUS_COLORS[status?.toLowerCase()] || STATUS_COLORS.open
   return (
@@ -150,10 +174,11 @@ export default function MyCases() {
                 />
                 <FormInput
                   label="Location"
+                  type='select'
                   name="location"
                   value={form.location}
                   onChange={handleChange}
-                  placeholder="Delhi"
+                  options={locationOptions}
                   required
                 />
               </div>
